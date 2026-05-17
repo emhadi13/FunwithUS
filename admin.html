@@ -377,11 +377,11 @@
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">Fun With Us</div>
-    <div class="login-sub">Admin Dashboard - Sirf Tumhare Liye</div>
+    <div class="login-sub">Admin Dashboard - Only For You</div>
     <input type="text" class="login-input" id="adminUser" placeholder="Username">
     <input type="password" class="login-input" id="adminPass" placeholder="Password">
     <button class="login-btn" id="loginBtn">Login</button>
-    <div class="login-error" id="loginError">❌ Username ya Password galat hai!</div>
+    <div class="login-error" id="loginError">❌ Wrong username or password!</div>
   </div>
 </div>
 
@@ -401,7 +401,7 @@
       <div class="stat-card green">
         <div class="stat-icon">👥</div>
         <div class="stat-value" id="onlineCount">0</div>
-        <div class="stat-label">Abhi Online Hain</div>
+        <div class="stat-label">Online Right Now</div>
       </div>
       <div class="stat-card blue">
         <div class="stat-icon">📞</div>
@@ -411,12 +411,12 @@
       <div class="stat-card orange">
         <div class="stat-icon">⏳</div>
         <div class="stat-value" id="waitingCount">0</div>
-        <div class="stat-label">Partner Ka Intezaar</div>
+        <div class="stat-label">Waiting for Partner</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">📊</div>
         <div class="stat-value" id="totalVisitors">0</div>
-        <div class="stat-label">Aaj Ke Visitors</div>
+        <div class="stat-label">Today's Visitors</div>
       </div>
     </div>
 
@@ -424,7 +424,7 @@
     <div class="rooms-box">
       <div class="rooms-header">🔴 Live Video Calls</div>
       <div class="rooms-list" id="roomsList">
-        <div class="empty-msg">Abhi koi active call nahi hai</div>
+        <div class="empty-msg">No active calls right now</div>
       </div>
     </div>
 
@@ -435,11 +435,11 @@
         <button class="clear-btn" id="clearLog">Clear</button>
       </div>
       <div class="activity-list" id="activityList">
-        <div class="empty-msg">Koi activity nahi abhi...</div>
+        <div class="empty-msg">No activity yet...</div>
       </div>
     </div>
 
-    <div class="refresh-info">⟳ Data har 5 second mein automatically update hota hai</div>
+    <div class="refresh-info">⟳ Data updates automatically every 5 seconds</div>
   </div>
 </div>
 
@@ -458,7 +458,7 @@
     databaseURL: "https://video-chat-available-default-rtdb.firebaseio.com"
   };
 
-  // ADMIN CREDENTIALS - Yeh sirf tumhare liye hai
+  // ADMIN CREDENTIALS - Only for you
   const ADMIN_USER = "emhadi";
   const ADMIN_PASS = "funwithus2024";
 
@@ -504,7 +504,7 @@
 
   document.getElementById('clearLog').addEventListener('click', () => {
     activityLog = [];
-    document.getElementById('activityList').innerHTML = '<div class="empty-msg">Koi activity nahi abhi...</div>';
+    document.getElementById('activityList').innerHTML = '<div class="empty-msg">No activity yet...</div>';
   });
 
   function addActivity(text, type) {
@@ -538,9 +538,9 @@
         todayVisitors += diff;
         localStorage.setItem('todayVisitors', todayVisitors);
         document.getElementById('totalVisitors').textContent = todayVisitors;
-        addActivity(`${diff} naya user join kiya`, 'join');
+        addActivity(`${diff} new user joined`, 'join');
       } else if (count < prevOnline) {
-        addActivity(`${prevOnline - count} user chala gaya`, 'leave');
+        addActivity(`${prevOnline - count} user left`, 'leave');
       }
       prevOnline = count;
     });
@@ -555,7 +555,7 @@
     onValue(ref(db, 'chat'), snap => {
       if (!snap.exists()) {
         document.getElementById('activeRooms').textContent = '0';
-        document.getElementById('roomsList').innerHTML = '<div class="empty-msg">Abhi koi active call nahi hai</div>';
+        document.getElementById('roomsList').innerHTML = '<div class="empty-msg">No active calls right now</div>';
         return;
       }
 
@@ -575,7 +575,7 @@
       });
 
       if (rooms.length > 0) {
-        addActivity(`${rooms.length} active video call chal rahi hai`, 'call');
+        addActivity(`${rooms.length} active video call running`, 'call');
       }
     });
   }
