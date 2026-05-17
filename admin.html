@@ -477,12 +477,20 @@
 
   document.getElementById('totalVisitors').textContent = todayVisitors;
 
+  // AUTO LOGIN - agar pehle login kiya hua hai
+  if (localStorage.getItem("adminLoggedIn") === "true") {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    startDashboard();
+  }
+
   // LOGIN
   document.getElementById('loginBtn').addEventListener('click', () => {
     const user = document.getElementById('adminUser').value.trim();
     const pass = document.getElementById('adminPass').value.trim();
 
     if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      localStorage.setItem("adminLoggedIn", "true");
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
       startDashboard();
@@ -498,6 +506,7 @@
   document.getElementById('logoutBtn').addEventListener('click', () => {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('loginScreen').style.display = 'flex';
+    localStorage.removeItem('adminLoggedIn');
     document.getElementById('adminUser').value = '';
     document.getElementById('adminPass').value = '';
   });
